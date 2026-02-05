@@ -14,6 +14,9 @@ os.environ["TRANSFORMERS_OFFLINE"] = "1"
 import os
 
 CACHE_DIR = "/runpod-volume/huggingface-cache/hub"
+cached_models = os.listdir(CACHE_DIR)
+for c in cached_models:
+    print(f"[ModelStore] cached model available: {c}")
 
 def find_model_path(model_name):
     """
@@ -42,7 +45,7 @@ def find_model_path(model_name):
     return None
 
 # Example usage
-model_path = find_model_path("Qwen/Qwen2.5-0.5B-Instruct")
+model_path = find_model_path(MODEL_ID) #$"Qwen/Qwen2.5-0.5B-Instruct")
 if model_path:
     print(f"Model found at: {model_path}")
 else:
