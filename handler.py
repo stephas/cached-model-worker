@@ -14,9 +14,10 @@ os.environ["TRANSFORMERS_OFFLINE"] = "1"
 import os
 
 CACHE_DIR = "/runpod-volume/huggingface-cache/hub"
-cached_models = os.listdir(CACHE_DIR)
-for c in cached_models:
-    print(f"[ModelStore] cached model available: {c}")
+# ugh runpod, list operations are slow...
+#cached_models = os.listdir(CACHE_DIR)
+#for c in cached_models:
+#    print(f"[ModelStore] cached model available: {c}")
 
 def find_model_path(model_name):
     """
@@ -138,6 +139,13 @@ def handler(job):
         Dictionary with generated text or error information
     """
     job_input = job.get("input", {}) or {}
+    search = job_input.get("search", MODEL_ID)
+    if search:
+        model_path = find_model_path(search) #$"Qwen/Qwen2.5-0.5B-Instruct")
+        if model_path:
+            print(f"Model found at: {model_path}")
+        else:
+            print("Model not found in cache")
     prompt = job_input.get("prompt", "Hello!")
     max_tokens = int(job_input.get("max_tokens", 256))
     temperature = float(job_input.get("temperature", 0.7))
