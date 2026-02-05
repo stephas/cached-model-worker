@@ -2,12 +2,51 @@ import os
 import runpod
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
+print(f"[ModelStore] Start")
+
 MODEL_ID = os.environ.get("MODEL_NAME", "microsoft/Phi-3-mini-4k-instruct")
 HF_CACHE_ROOT = "/runpod-volume/huggingface-cache/hub"
 
 # Force offline mode to use only cached models
 os.environ["HF_HUB_OFFLINE"] = "1"
 os.environ["TRANSFORMERS_OFFLINE"] = "1"
+
+import os
+
+CACHE_DIR = "/runpod-volume/huggingface-cache/hub"
+
+def find_model_path(model_name):
+    """
+    Find the path to a cached model.
+    
+    Args:
+        model_name: The model name from Hugging Face
+        (e.g., 'Qwen/Qwen2.5-0.5B-Instruct')
+    
+    Returns:
+        The full path to the cached model, or None if not found
+    """
+    # Convert model name format: "Org/Model" -> "models--Org--Model"
+    cache_name = model_name.replace("/", "--")
+    snapshots_dir = os.path.join(CACHE_DIR, f"models--{cache_name}", "snapshots")
+    
+    # Check if the model exists in cache
+    if os.path.exists(snapshots_dir):
+        snapshots = os.listdir(snapshots_dir)
+        for s in snapshots:
+            print(f"[ModelStore] available: {s}")
+        if snapshots:
+            # Return the path to the first (usually only) snapshot
+            return os.path.join(snapshots_dir, snapshots[0])
+    
+    return None
+
+# Example usage
+model_path = find_model_path("Qwen/Qwen2.5-0.5B-Instruct")
+if model_path:
+    print(f"Model found at: {model_path}")
+else:
+    print("Model not found in cache")
 
 
 def resolve_snapshot_path(model_id: str) -> str:
