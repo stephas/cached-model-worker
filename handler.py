@@ -106,13 +106,13 @@ print(f"[ModelStore] Resolved local model path: {LOCAL_MODEL_PATH}")
 
 tokenizer = AutoTokenizer.from_pretrained(
     LOCAL_MODEL_PATH,
-    trust_remote_code=False,
+    trust_remote_code=True,
     local_files_only=True,
 )
 
 model = AutoModelForCausalLM.from_pretrained(
     LOCAL_MODEL_PATH,
-    trust_remote_code=False,
+    trust_remote_code=True,
     torch_dtype="auto",
     device_map="auto",
     local_files_only=True,
