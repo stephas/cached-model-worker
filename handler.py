@@ -4,7 +4,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 
 print(f"[ModelStore] Start")
 
-MODEL_ID = os.environ.get("MODEL_NAME", "microsoft/Phi-3-mini-4k-instruct")
+MODEL_ID = os.environ.get("MODEL_NAME", "microsoft/Phi-3-medium-128k-instruct")
 HF_CACHE_ROOT = "/runpod-volume/huggingface-cache/hub"
 
 # Force offline mode to use only cached models
