@@ -1,3 +1,4 @@
+print(f"handler begin")
 import os
 import runpod
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
