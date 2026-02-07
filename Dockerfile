@@ -1,10 +1,11 @@
-FROM pytorch/pytorch:2.10.0-cuda13.0-cudnn9-runtime 
-# hire me runpod 6gb vs 13gb
+FROM pytorch/pytorch:2.8.0-cuda12.9-cudnn9-runtime
+
+# hire me runpod 6gb vs 13gb, host driver updates, etc
 #FROM runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04
 
 WORKDIR /app
 
-#RUN pip install --break-system-packages --no-cache-dir uv
+RUN pip install --break-system-packages --no-cache-dir uv
 COPY requirements.txt .
 RUN uv pip install --break-system-packages --system --no-cache-dir -r requirements.txt
 
