@@ -21,7 +21,7 @@ ENV PORT=80
 RUN pip install --no-cache-dir uv
 #RUN uv pip install --system --no-cache-dir --upgrade "sglang[all]>=0.5.8"
 RUN uv pip install --system --no-cache-dir --upgrade "sglang>=0.5.8"
-
+RUN apt install -y libnuma-dev
 #RUN python3 -m sglang.launch_server
 #RUN false
 WORKDIR /app
