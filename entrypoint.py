@@ -25,14 +25,18 @@ def start_server(model_name):
 if __name__ == "__main__":
     print(model_name)
     
-    print(f"{find_model_path(model_name)=}")
     p = "unknown_path"
     try:
+        print(f"{find_model_path(model_name)=}")
+        p = find_model_path(model_name)
+        print(validate_qwen3(p))
+
         p = resolve_snapshot_path(model_name)
         print(f"resolve_snapshot_path(model_name)={p}")
+        print(validate_qwen3(p))
     except Exception as ex:
+        print("cache model not found")
         print(ex)
-    print(validate_qwen3(p))
 #    print(f"{find_model_path(model_name)=} {resolve_snapshot_path(model_name)=}")
     start_server(model_name)
 
