@@ -4,7 +4,7 @@
 nvidia-smi
 
 # Spin up the latest sglang runtime
-sglang --version
+which sglang
 
 ## Analyze the model_name if it is available for sglang to run
 #if sglang --model-name $MODEL_NAME; then

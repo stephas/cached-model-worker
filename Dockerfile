@@ -3,9 +3,9 @@
 #FROM lmsysorg/sglang:latest-runtime
 # ugh 36.8 or what was it GB
 #bin/python no such file it's under conda, and must install sglang still, etc base is 6gb though
-FROM pytorch/pytorch:2.8.0-cuda12.9-cudnn9-runtime 
+#FROM pytorch/pytorch:2.8.0-cuda12.9-cudnn9-runtime 
 #also needs python regs but python is in a normal usr bin path
-#FROM runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04
+FROM runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04
 
 # Set environment variables for peak performance
 ENV SGLANG_CUDA_GRAPH_MAX_BATCH_SIZE=16
